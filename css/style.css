@@ -1,0 +1,469 @@
+:root {
+  --bg0: #0b0618;
+  --bg1: #1a0b3a;
+  --neon: #7cf0ff;
+  --pink: #ff7ad9;
+  --gold: #ffd56a;
+  --card: rgba(18, 10, 40, 0.78);
+  --ink: #f7f3ff;
+  --muted: #c8b8e8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg0);
+  color: var(--ink);
+  font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+  overflow: hidden;
+}
+
+#stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(1200px 600px at 50% 10%, #3a1a6e 0%, transparent 55%),
+    radial-gradient(800px 500px at 80% 80%, #1a3a6a 0%, transparent 50%),
+    linear-gradient(180deg, #14082c 0%, #0b0618 70%);
+  overflow: hidden;
+}
+
+.stars, .stars::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 12% 18%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 28% 42%, #cde 50%, transparent 51%),
+    radial-gradient(1px 1px at 64% 22%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 81% 36%, #9ef 50%, transparent 51%),
+    radial-gradient(1px 1px at 45% 12%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 8% 72%, #fdf 50%, transparent 51%),
+    radial-gradient(1px 1px at 92% 68%, #fff 50%, transparent 51%);
+  animation: twinkle 4s ease-in-out infinite;
+}
+.stars::after {
+  content: "";
+  opacity: 0.45;
+  transform: translateY(20px);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 0.45; }
+}
+
+.scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 3px,
+    rgba(0, 0, 0, 0.08) 3px 4px
+  );
+  opacity: 0.35;
+  z-index: 8;
+}
+
+.chrome {
+  position: absolute;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(8, 4, 20, 0.55);
+  border: 1px solid rgba(124, 240, 255, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.live {
+  top: 18px;
+  left: 18px;
+}
+.live .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff3b6b;
+  box-shadow: 0 0 10px #ff3b6b;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.live .label {
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  font-size: 13px;
+  color: #ff6b8a;
+}
+.viewers {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+.nameplate {
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 22px;
+  border-radius: 16px 16px 18px 18px;
+  background: linear-gradient(180deg, rgba(40, 16, 72, 0.9), rgba(12, 6, 28, 0.85));
+  border: 1px solid rgba(255, 122, 217, 0.45);
+  box-shadow: 0 8px 30px rgba(255, 122, 217, 0.15);
+  text-align: center;
+  min-width: 220px;
+}
+.nameplate .jp {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  background: linear-gradient(90deg, #7cf0ff, #ffd56a, #ff7ad9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.nameplate .sub {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  margin-top: 2px;
+}
+
+.topic-chip {
+  top: 18px;
+  right: 18px;
+  font-size: 12px;
+  color: var(--neon);
+}
+
+#vtuber {
+  position: absolute;
+  left: 50%;
+  bottom: 168px;
+  transform: translateX(-50%);
+  width: min(420px, 78vw);
+  z-index: 5;
+  filter: drop-shadow(0 20px 40px rgba(80, 20, 140, 0.45));
+}
+
+.avatar-wrap {
+  animation: idle-bob 3.4s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+@keyframes idle-bow {
+  0%, 100% { transform: translateY(0) rotate(-0.4deg); }
+  50% { transform: translateY(-8px) rotate(0.6deg); }
+}
+
+@keyframes idle-bob {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(-10px) rotate(0.7deg); }
+}
+
+#character { width: 100%; height: auto; overflow: visible; }
+
+.hair-sway {
+  transform-origin: 200px 90px;
+  animation: sway 3.8s ease-in-out infinite;
+}
+.hair-sway-r {
+  transform-origin: 280px 90px;
+  animation: sway 3.8s ease-in-out infinite reverse;
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(1.6deg); }
+}
+
+.blink {
+  animation: blink 4.6s infinite;
+  transform-origin: center;
+}
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.08); }
+}
+
+.star-clip {
+  animation: spin-slow 8s linear infinite;
+  transform-origin: 318px 92px;
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.mouth { transition: opacity 40ms linear; }
+.mouth-closed { opacity: 1; }
+.mouth-small, .mouth-open, .mouth-wide { opacity: 0; }
+
+.speaking.viseme-0 .mouth-closed { opacity: 1; }
+.speaking.viseme-0 .mouth-small,
+.speaking.viseme-0 .mouth-open,
+.speaking.viseme-0 .mouth-wide { opacity: 0; }
+
+.speaking.viseme-1 .mouth-small { opacity: 1; }
+.speaking.viseme-1 .mouth-closed,
+.speaking.viseme-1 .mouth-open,
+.speaking.viseme-1 .mouth-wide { opacity: 0; }
+
+.speaking.viseme-2 .mouth-open { opacity: 1; }
+.speaking.viseme-2 .mouth-closed,
+.speaking.viseme-2 .mouth-small,
+.speaking.viseme-2 .mouth-wide { opacity: 0; }
+
+.speaking.viseme-3 .mouth-wide { opacity: 1; }
+.speaking.viseme-3 .mouth-closed,
+.speaking.viseme-3 .mouth-small,
+.speaking.viseme-3 .mouth-open { opacity: 0; }
+
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: 188px;
+  transform: translateX(-50%);
+  z-index: 10;
+  max-width: min(640px, 92vw);
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: rgba(10, 6, 24, 0.72);
+  border: 1px solid rgba(124, 240, 255, 0.28);
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.4);
+}
+
+.choices {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  z-index: 14;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 0 16px;
+}
+
+.choice {
+  appearance: none;
+  border: 1px solid rgba(255, 122, 217, 0.4);
+  background:
+    linear-gradient(180deg, rgba(70, 24, 110, 0.85), rgba(18, 8, 40, 0.92));
+  color: var(--ink);
+  border-radius: 18px;
+  min-height: 92px;
+  padding: 14px 16px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s;
+}
+.choice:hover {
+  transform: translateY(-3px);
+  border-color: var(--neon);
+  box-shadow: 0 0 0 1px rgba(124, 240, 255, 0.3), 0 12px 32px rgba(124, 240, 255, 0.15);
+}
+.choice:active { transform: translateY(1px) scale(0.99); }
+.choice:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.choice .key {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.choice .txt { display: block; }
+
+.gate {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  background: rgba(6, 2, 16, 0.55);
+  backdrop-filter: blur(4px);
+}
+.gate.hidden { display: none; }
+.gate button {
+  appearance: none;
+  border: 1px solid rgba(124, 240, 255, 0.5);
+  background: linear-gradient(180deg, #3a1a72, #16082e);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  padding: 18px 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 0 40px rgba(124, 240, 255, 0.25);
+}
+
+.spark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  pointer-events: none;
+  animation: spark 1.6s ease-out infinite;
+}
+@keyframes spark {
+  0% { transform: scale(0.4); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-40px) scale(1); opacity: 0; }
+}
+
+@media (max-width: 640px) {
+  .caption { font-size: 15px; bottom: 200px; }
+  .choice { font-size: 15px; min-height: 84px; }
+  #vtuber { bottom: 180px; }
+  .nameplate .jp { font-size: 16px; }
+}
+
+/* user illustration avatar */
+#vtuber {
+  bottom: 150px;
+  width: min(360px, 72vw);
+  height: min(58vh, 540px);
+  filter: drop-shadow(0 18px 36px rgba(20, 10, 40, 0.55));
+}
+.avatar-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.talent {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+#character { width: 100%; height: 100%; overflow: visible; }
+.mouth-layer {
+  position: absolute;
+  left: 11.2%;
+  top: 8.4%;
+  width: 42px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.mouth {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  transition: opacity 50ms linear;
+}
+.mouth-closed {
+  width: 16px;
+  height: 3px;
+  border-radius: 40%;
+  background: #c45a72;
+  opacity: 0.55;
+}
+.mouth-small {
+  width: 14px;
+  height: 10px;
+  border-radius: 50%;
+  background: #8a3048;
+  box-shadow: inset 0 -3px 0 #f4b3c4;
+  opacity: 0;
+}
+.mouth-open {
+  width: 18px;
+  height: 16px;
+  border-radius: 50%;
+  background: #6a2038;
+  box-shadow: inset 0 -5px 0 #e8a0b4;
+  opacity: 0;
+}
+.mouth-wide {
+  width: 26px;
+  height: 12px;
+  border-radius: 50%;
+  background: #6a2038;
+  box-shadow: inset 0 -4px 0 #e8a0b4;
+  opacity: 0;
+}
+.speaking .mouth-closed { opacity: 0; }
+.speaking.viseme-0 .mouth-closed { opacity: 0.7; }
+.speaking.viseme-0 .mouth-small,
+.speaking.viseme-0 .mouth-open,
+.speaking.viseme-0 .mouth-wide { opacity: 0; }
+.speaking.viseme-1 .mouth-small { opacity: 0.92; }
+.speaking.viseme-1 .mouth-closed,
+.speaking.viseme-1 .mouth-open,
+.speaking.viseme-1 .mouth-wide { opacity: 0; }
+.speaking.viseme-2 .mouth-open { opacity: 0.95; }
+.speaking.viseme-2 .mouth-closed,
+.speaking.viseme-2 .mouth-small,
+.speaking.viseme-2 .mouth-wide { opacity: 0; }
+.speaking.viseme-3 .mouth-wide { opacity: 0.95; }
+.speaking.viseme-3 .mouth-closed,
+.speaking.viseme-3 .mouth-small,
+.speaking.viseme-3 .mouth-open { opacity: 0; }
+
+.stat-panel {
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  z-index: 12;
+  width: 168px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(8, 4, 20, 0.62);
+  border: 1px solid rgba(255, 213, 106, 0.35);
+  backdrop-filter: blur(8px);
+}
+.stat {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.stat i {
+  display: block;
+  height: 7px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.12);
+  overflow: hidden;
+}
+.stat b {
+  display: block;
+  height: 100%;
+  width: 12%;
+  border-radius: 99px;
+  background: var(--gold);
+  transition: width 0.35s ease;
+}
+.stat[data-stat="bond"] b { background: var(--pink); }
+.stat[data-stat="talent"] b { background: var(--neon); }
+.stat[data-stat="guts"] b { background: var(--gold); }
+.choice .key { color: var(--neon); }
